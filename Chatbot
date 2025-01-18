@@ -1,0 +1,56 @@
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class Chatbot {
+    private Scanner scanner;
+    Map<String, String> responses;
+
+    public Chatbot() {
+        scanner = new Scanner(System.in);
+        responses = new HashMap<>();
+        initializeResponses();
+    }
+    private void initializeResponses(){
+        responses.put("hello", "Hello! How can i assist you?");
+        responses.put("how are you", "i'm just a program, but I'm here to help you!");
+        responses.put("what is your name?"," I'm advance chatbot System!");
+        responses.put("can you help me", "Why not.");
+        responses.put("shubham", "Nice to meet you..");
+        
+        responses.put("thank you!", "You're welcome");
+    }
+    public void startChat() {
+        System.out.println("Hello! I'm your friendly chatbot. How can I help you today?");
+        String input;
+        while (true) {
+            System.out.print("You: ");
+            input = scanner.nextLine().trim().toLowerCase();
+            
+            if (input.equals("exit") || input.equals("quit")) {
+                System.out.println("Chatbot: Goodbye! Have a great day!");
+                scanner.close();
+                break;
+            } else {
+                respond(input);
+            }
+        }
+    }
+
+    private void respond(String input){
+        if(responses.containsKey(input)){
+            System.out.println("Chatbot: " + responses.get(input));
+        }else{
+            System.out.println("Chaatbot: I'm not sure, I understand that. can you please rephrase?");
+        }
+    }
+    public void updateResponses(String keyword, String newResponses){
+        responses.put(keyword.toLowerCase(), newResponses);
+    }
+
+    public static void main(String[] args) {
+        Chatbot chatbot = new Chatbot();
+        chatbot.updateResponses("hello", "Hi there! How can I help you today?");
+        chatbot.startChat();
+    }
+}
